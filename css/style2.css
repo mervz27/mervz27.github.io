@@ -27,3 +27,7 @@ body {
 .table-hover {
     --bs-table-hover-bg: #0dcaf0;
 }
+
+.table-active {
+    --bs-table-active-bg: #0dcaf0;
+}

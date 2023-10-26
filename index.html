@@ -94,7 +94,7 @@
                     <th scope="col">Target Date</th>
                     <th scope="col">Category</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,7 +107,11 @@
                     <td class="align-middle">2023-10-23</td>
                     <td class="align-middle">Hardware Support</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal" data-ticket-no="TIX-20231019">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231020</th>
@@ -118,7 +122,11 @@
                     <td class="align-middle">2023-10-27</td>
                     <td class="align-middle">Access Elevation</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231022</th>
@@ -129,7 +137,11 @@
                     <td class="align-middle">2023-10-26</td>
                     <td class="align-middle">Hardware Support</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231004</th>
@@ -140,7 +152,11 @@
                     <td class="align-middle">2023-10-10</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning me-1">ongoing</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231010</th>
@@ -150,8 +166,12 @@
                     <td class="align-middle">2023-10-10</td>
                     <td class="align-middle">2023-10-16</td>
                     <td class="align-middle">Software Module</td>
-                    <td class="align-middle"><span class="badge rounded-pill text-bg-warning me-1">ongoing</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle" id="status"><span class="badge rounded-pill text-bg-warning me-1">ongoing</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -201,7 +221,11 @@
                     <td class="align-middle fs-6">2023-10-27</td>
                     <td class="align-middle fs-6">Hardware Assignment</td>
                     <td class="align-middle fs-6"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
-                    <td class="align-middle fs-6"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                    <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231024</th>
@@ -212,7 +236,11 @@
                     <td class="align-middle">2023-10-14</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231017</th>
@@ -223,7 +251,11 @@
                     <td class="align-middle">2023-10-08</td>
                     <td class="align-middle">Hardware Support</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231015</th>
@@ -234,7 +266,11 @@
                     <td class="align-middle">2023-10-10</td>
                     <td class="align-middle">Hardware Assignment</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231011</th>
@@ -245,7 +281,11 @@
                     <td class="align-middle">2023-10-26</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231012</th>
@@ -256,7 +296,11 @@
                     <td class="align-middle">2023-10-26</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231013</th>
@@ -267,7 +311,11 @@
                     <td class="align-middle">2023-10-26</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231014</th>
@@ -278,7 +326,11 @@
                     <td class="align-middle">2023-10-24</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -328,7 +380,11 @@
                     <td class="align-middle">2023-10-08</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231001</th>
@@ -339,7 +395,11 @@
                     <td class="align-middle">2023-10-05</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <th class="align-middle" scope="row">TIX-20231009</th>
@@ -350,7 +410,11 @@
                     <td class="align-middle">2023-10-08</td>
                     <td class="align-middle">Software Module</td>
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
-                    <td class="align-middle"><button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button></td>
+                     <td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -366,8 +430,8 @@
       <div class="modal fade " id="viewTicketModal" tabindex="-1" aria-labelledby="viewTicketLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
-            <div class="modal-header bg-warning">
-              <h1 class="modal-title fs-5" id="viewTicketLabel">Ticket Details for <span class="fw-bold">TIX-20231006 [On Going]</span></h1>
+            <div class="modal-header bg-warning" id="modal-header">
+              <h1 class="modal-title fs-5" id="viewTicketLabel">Ticket Details for <span class="fw-bold" id="modal-ticket-no">TIX-20231006 [On Going]</span></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Modal Body -->
@@ -386,7 +450,7 @@
                     <!-- STATUS -->
                     <label for="category" class="col-form-label col-2 fw-bold text-end">Status:</label>
                     <div class="col-4">
-                      <input type="text" class="form-control form-control-sm text-bg-warning" name="category" id="category" value="On Going" disabled>
+                      <input type="text" class="form-control form-control-sm text-bg-warning" name="field-status" id="field-status" value="On Going" disabled>
                     </div>
 
                     <!-- TITLE -->
@@ -447,8 +511,8 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-warning">Process Ticket</button>
-              <button type="button" class="btn btn-success">Complete Ticket</button>
+              <button type="button" class="btn btn-warning" id="modal-btn-process">Process Ticket</button>
+              <button type="button" class="btn btn-success" id="modal-btn-complete">Complete Ticket</button>
             </div>
           </div>
         </div>
@@ -464,10 +528,9 @@
         </div>
       </footer>
     
-    
+      
 
-    <script src="bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
-
+    <script src="index.js"></script>  
     
 </body>
 </html>
