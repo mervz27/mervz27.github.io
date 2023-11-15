@@ -42,12 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
       let completed   = document.getElementById('date-completed');
       const statusArray = ['ongoing','on queue','completed','overdue'];
 
-      // Load table row data to modal
       row.classList.add('table-active');
-      modalTitle.innerHTML = ticketNo[0].textContent + " ["+ columns[6].textContent.toUpperCase() +"]";
+     
+
+      textContentArray = breakByHTMLChars(columns[6].innerHTML);
+      
+      modalTitle.innerHTML = ticketNo[0].textContent + " ["+ textContentArray.join("/") +"]";
       changeModalHeaderColor(columns[6].textContent.toLowerCase());
       category.value    = columns[5].textContent;
-      status.value      = columns[6].textContent;
+      status.value      = textContentArray.join("/");
       title.value       = columns[0].textContent;
       dateCreated.value = columns[3].textContent;
       targetDate.value  = columns[4].textContent;
@@ -97,4 +100,12 @@ function changeModalHeaderColor(status){
       fstatus.classList.add('text-bg-danger');
       break;                    
   } 
+}
+
+
+function breakByHTMLChars(statusHtml = ""){
+  const tagRegex = /<[^>]*>/g;
+  const resultArray = statusHtml.split(tagRegex);
+
+  return resultArray.filter(item => item.trim() !== '');
 }
