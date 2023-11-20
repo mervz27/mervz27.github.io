@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
   //Ticket Button
   viewButton = document.querySelectorAll('.view-ticket');
-  
+  editButton = document.querySelectorAll('.edit-ticket');
+  deleteButton = document.querySelectorAll('.delete-ticket');
+  const modalMain = document.querySelector('#viewTicketModal');
+  let activeRow = null;
+
+  // ON RECORD ClICK
   document.querySelectorAll('.table tbody tr').forEach(row => {
+    showHideTableButtons(row);
+    
     row.addEventListener('click', () => {
       // Get the data from the clicked row
       const columns = row.getElementsByTagName('td');
@@ -15,20 +22,22 @@ document.addEventListener('DOMContentLoaded', function() {
       for (var i = 0; i < status.length; i++) {
         animalArray.push(status[i].textContent);
       }
-      // Do something with the data (e.g., display in an alert)
-      //alert(`Name: ${firstName} ${lastName}\nEmail: ${animalArray}`);
     });
+
+
+    
   });
 
+  // ALL VIEW BUTTONS
   viewButton.forEach(function(button){
     button.addEventListener('click', function(){
-      document.querySelectorAll('tr').forEach(row => {
-        row.classList.remove('table-active');
-      });
+      removeRowHightlight();
 
       let row       = this.parentElement.parentElement;
+      activeRow       = row;
       const ticketNo  = row.getElementsByTagName('th');
       const columns   = row.getElementsByTagName('td');
+      let modalLabel  = document.getElementById('view-ticket-label');
       let modalTitle  = document.getElementById('modal-ticket-no');
       let category    = document.getElementById('category');
       let status      = document.getElementById('field-status');
@@ -47,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       textContentArray = breakByHTMLChars(columns[6].innerHTML);
       
-      modalTitle.innerHTML = ticketNo[0].textContent + " ["+ textContentArray.join("/") +"]";
+      modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
       changeModalHeaderColor(columns[6].textContent.toLowerCase());
       category.value    = columns[5].textContent;
       status.value      = textContentArray.join("/");
@@ -57,16 +66,88 @@ document.addEventListener('DOMContentLoaded', function() {
       requestedBy.value = columns[1].textContent;
       assignedTo.value  = 'IT Department';
       department.value  = columns[2].textContent;
-      
-      
 
-
-
+      //showHideButtons
+      showHideModalButtons(row);
     });
     
     
     
   });
+  
+
+  // ALL EDIT BUTTONS
+  editButton.forEach(function(button){
+    button.addEventListener('click', function(){
+      removeRowHightlight();
+
+      let row       = this.parentElement.parentElement;
+      activeRow       = row;
+      const ticketNo  = row.getElementsByTagName('th');
+      const columns   = row.getElementsByTagName('td');
+      let modalLabel  = document.getElementById('view-ticket-label');
+      let modalTitle  = document.getElementById('modal-ticket-no');
+      let category    = document.getElementById('category');
+      let status      = document.getElementById('field-status');
+      let title       = document.getElementById('request-title');
+      let description = document.getElementById('ticket-description');
+      let dateCreated = document.getElementById('date-created');
+      let targetDate  = document.getElementById('target-date');
+      let requestedBy = document.getElementById('requested-by');
+      let assignedTo  = document.getElementById('assigned-to');
+      let department  = document.getElementById('department');
+      let completed   = document.getElementById('date-completed');
+      const statusArray = ['ongoing','on queue','completed','overdue'];
+
+      row.classList.add('table-active');
+     
+
+      textContentArray = breakByHTMLChars(columns[6].innerHTML);
+      
+      modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
+      changeModalHeaderColor(columns[6].textContent.toLowerCase());
+      category.value    = columns[5].textContent;
+      status.value      = textContentArray.join("/");
+      title.value       = columns[0].textContent;
+      dateCreated.value = columns[3].textContent;
+      targetDate.value  = columns[4].textContent;
+      requestedBy.value = columns[1].textContent;
+      assignedTo.value  = 'IT Department';
+      department.value  = columns[2].textContent;
+
+      showHideModalButtons(row);
+
+    });
+  });
+
+
+  // ALL DELETE BUTTONS
+  deleteButton.forEach(function(button){
+    button.addEventListener('click', function(){
+      removeRowHightlight();
+      let row       = this.parentElement.parentElement;
+      const modalMain = document.querySelector("#deleteTicketModal")
+      const myModal = new bootstrap.Modal(modalMain);
+      myModal.show();
+      
+      const confirmDelBtn = modalMain.querySelector("#modal-btn-delete");
+      confirmDelBtn.addEventListener("click", function(){
+        myModal.hide();
+        row.remove();
+        
+      });
+
+      
+    });
+  });
+
+
+  // ON MODAL CLOSE
+  modalMain.addEventListener("hidden.bs.modal", function(){
+    activeRow.classList.remove('table-active');
+  });
+
+
 
 });
 
@@ -80,18 +161,14 @@ function changeModalHeaderColor(status){
       
   switch (status) {
     case 'ongoing':
-      console.log(status);
       modalHeader.classList.add('bg-warning');
       fstatus.classList.add('text-bg-warning');
-      let btnProcess
       break;
     case 'on queue':
-      console.log(status);
       modalHeader.classList.add('bg-secondary');
       fstatus.classList.add('text-bg-secondary');
       break;
     case 'completed':
-      console.log(status);
       modalHeader.classList.add('bg-success');
       fstatus.classList.add('text-bg-success');
       break;  
@@ -108,4 +185,59 @@ function breakByHTMLChars(statusHtml = ""){
   const resultArray = statusHtml.split(tagRegex);
 
   return resultArray.filter(item => item.trim() !== '');
+}
+
+
+function showHideTableButtons(row){
+  const columns = row.getElementsByTagName('td'); 
+  const status = breakByHTMLChars(columns[6].innerHTML);
+  
+  if(status.includes("completed")){
+    removeBtns = columns[7].querySelectorAll(".edit-ticket,.delete-ticket");
+    removeBtns.forEach(btnCol => {
+      btnCol.classList.add('d-none');
+    });
+  }
+}
+
+function showHideModalButtons(row){
+  const columns = row.getElementsByTagName('td'); 
+  const status = breakByHTMLChars(columns[6].innerHTML);
+  const modalMain = document.querySelector('#viewTicketModal');
+  
+  
+  if(status.includes("completed")){
+    removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete");
+    removeBtns.forEach(btnCol => {
+      btnCol.classList.add('d-none');
+    });
+
+   
+  } else if(status.includes("On Queue")){
+    removeBtns = modalMain.querySelectorAll("#modal-btn-complete");
+    removeBtns.forEach(btnCol => {
+      btnCol.classList.add('d-none');
+    });
+
+    showBtns = modalMain.querySelectorAll("#modal-btn-process");
+    showBtns.forEach(btnCol => {
+      btnCol.classList.remove('d-none');
+    });
+  } else if(status.includes("ongoing")){
+    removeBtns = modalMain.querySelectorAll("#modal-btn-process");
+    removeBtns.forEach(btnCol => {
+      btnCol.classList.add('d-none');
+    });
+
+    showBtns = modalMain.querySelectorAll("#modal-btn-complete");
+    showBtns.forEach(btnCol => {
+      btnCol.classList.remove('d-none');
+    });
+  }
+}
+
+function removeRowHightlight(){
+  document.querySelectorAll('tr').forEach(row => {
+    row.classList.remove('table-active');
+  });
 }

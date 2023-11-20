@@ -70,6 +70,8 @@
       
       <div class=" divider"></div>
       
+     
+      
       <!-- ONGOING TABLE -->
       <section class="accordion container-fluid" id="accordion-table-ongoing">
         <div class="accordion-item acc-warning">
@@ -109,8 +111,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
                     <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal" data-ticket-no="TIX-20231019">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -124,8 +126,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
                     <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -139,8 +141,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning">ongoing</span></td>
                     <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -154,8 +156,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-warning me-1">ongoing</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
                     <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -169,8 +171,8 @@
                     <td class="align-middle" id="status"><span class="badge rounded-pill text-bg-warning me-1">ongoing</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -208,7 +210,7 @@
                     <th scope="col">Target Date</th>
                     <th scope="col">Category</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -223,8 +225,8 @@
                     <td class="align-middle fs-6"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
                     <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -238,8 +240,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -253,8 +255,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -268,8 +270,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary me-1">On Queue</span><span class="badge rounded-pill text-bg-danger">overdue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -283,8 +285,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -298,8 +300,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -313,8 +315,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -328,8 +330,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -367,7 +369,7 @@
                     <th scope="col">Date Completed</th>
                     <th scope="col">Category</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -382,8 +384,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -397,8 +399,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
                     </td>
                   </tr>
                   <tr>
@@ -412,8 +414,8 @@
                     <td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>
                      <td class="align-middle text-center">
                       <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
-                      <button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
-                      <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      <button class="btn btn-warning edit-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                      <button class="btn btn-danger delete-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -427,11 +429,12 @@
 
       <div class="divider"></div>
 
-      <div class="modal fade " id="viewTicketModal" tabindex="-1" aria-labelledby="viewTicketLabel" aria-hidden="true">
+      <!-- TRANSACTION MODAL -->
+      <div class="modal fade " id="viewTicketModal" tabindex="-1" aria-labelledby="view-ticket-label" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header bg-warning" id="modal-header">
-              <h1 class="modal-title fs-5" id="viewTicketLabel">Ticket Details for <span class="fw-bold" id="modal-ticket-no">TIX-20231006 [On Going]</span></h1>
+              <h1 class="modal-title fs-5" id="view-ticket-label">Ticket Details for <span class="fw-bold" id="modal-ticket-no">TIX-20231006 [On Going]</span></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Modal Body -->
@@ -519,6 +522,27 @@
       </div>
 
 
+      <!-- DELETE MODAL -->
+      <div class="modal fade" id="deleteTicketModal" tabindex="-1" aria-labelledby="delete-ticket-label" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-danger" id="modal-header">
+              <h1 class="modal-title fs-5" id="delete-ticket-label">Confirm Delete</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <div id="delete-prompt">Are you sure you want to delete </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-outline-danger" id="modal-btn-delete">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <footer class="bg-light">
         <div class="container-fluid py-2">
           <div class="row justify-content-between">
@@ -528,8 +552,8 @@
         </div>
       </footer>
     
-      
-
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
   <script src="index.js"></script>
     
 </body>
