@@ -3,25 +3,26 @@ document.addEventListener('DOMContentLoaded', function() {
   viewButton = document.querySelectorAll('.view-ticket');
   editButton = document.querySelectorAll('.edit-ticket');
   deleteButton = document.querySelectorAll('.delete-ticket');
-  const modalMain = document.querySelector('#viewTicketModal');
-  let activeRow = null;
+  modalMain = document.querySelector('#viewTicketModal');
+  completeButton = modalMain.querySelector("#modal-btn-complete");
+  activeRow = null;
 
   // ON RECORD ClICK
   document.querySelectorAll('.table tbody tr').forEach(row => {
     showHideTableButtons(row);
-    
-    row.addEventListener('click', () => {
+    row.addEventListener('dblclick', () => {
       // Get the data from the clicked row
       const columns = row.getElementsByTagName('td');
       const firstName = columns[1].textContent;
       const lastName = columns[2].textContent;
 
       const status = document.getElementById("status");
-      //console.log(status[0].textContent);
+      console.log(columns[0].textContent);
       const animalArray = [];
       for (var i = 0; i < status.length; i++) {
         animalArray.push(status[i].textContent);
       }
+      
     });
 
 
@@ -30,51 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ALL VIEW BUTTONS
   viewButton.forEach(function(button){
-    button.addEventListener('click', function(){
-      removeRowHightlight();
-
-      let row       = this.parentElement.parentElement;
-      activeRow       = row;
-      const ticketNo  = row.getElementsByTagName('th');
-      const columns   = row.getElementsByTagName('td');
-      let modalLabel  = document.getElementById('view-ticket-label');
-      let modalTitle  = document.getElementById('modal-ticket-no');
-      let category    = document.getElementById('category');
-      let status      = document.getElementById('field-status');
-      let title       = document.getElementById('request-title');
-      let description = document.getElementById('ticket-description');
-      let dateCreated = document.getElementById('date-created');
-      let targetDate  = document.getElementById('target-date');
-      let requestedBy = document.getElementById('requested-by');
-      let assignedTo  = document.getElementById('assigned-to');
-      let department  = document.getElementById('department');
-      let completed   = document.getElementById('date-completed');
-      const statusArray = ['ongoing','on queue','completed','overdue'];
-
-      row.classList.add('table-active');
-     
-
-      textContentArray = breakByHTMLChars(columns[6].innerHTML);
-      
-      modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
-      changeModalHeaderColor(columns[6].textContent.toLowerCase());
-      category.value    = columns[5].textContent;
-      status.value      = textContentArray.join("/");
-      title.value       = columns[0].textContent;
-      dateCreated.value = columns[3].textContent;
-      targetDate.value  = columns[4].textContent;
-      requestedBy.value = columns[1].textContent;
-      assignedTo.value  = 'IT Department';
-      department.value  = columns[2].textContent;
-
-      //showHideButtons
-      showHideModalButtons(row);
-    });
-    
-    
-    
+    initializedViewButton(button);    
   });
   
+
 
   // ALL EDIT BUTTONS
   editButton.forEach(function(button){
@@ -126,18 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function(){
       removeRowHightlight();
       let row       = this.parentElement.parentElement;
-      const modalMain = document.querySelector("#deleteTicketModal")
-      const myModal = new bootstrap.Modal(modalMain);
+      const modalDelete = document.querySelector("#deleteTicketModal")
+      const myModal = new bootstrap.Modal(modalDelete);
       myModal.show();
       
-      const confirmDelBtn = modalMain.querySelector("#modal-btn-delete");
+      const confirmDelBtn = modalDelete.querySelector("#modal-btn-delete");
       confirmDelBtn.addEventListener("click", function(){
         myModal.hide();
-        row.remove();
-        
+        row.remove();        
       });
-
-      
     });
   });
 
@@ -147,6 +104,46 @@ document.addEventListener('DOMContentLoaded', function() {
     activeRow.classList.remove('table-active');
   });
 
+  // MODAL BUTTONS
+  // COMPLETE TICKET BUTTON
+  completeButton.addEventListener("click", function(){
+    // const myModal = new bootstrap.Modal(modalMain);
+    // myModal.hide();
+    
+    const tblRow   = document.querySelector("#table-completed");
+    const tblBody  = tblRow.querySelector('tbody');
+    const ticketNo = activeRow.querySelectorAll('th');
+    const columns  = activeRow.querySelectorAll('td');
+    console.log(ticketNo);
+    let newRow     = tblBody.insertRow();
+
+    let col1 = newRow.insertCell(0);
+    let col2 = newRow.insertCell(1);
+    let col3 = newRow.insertCell(2);
+    let col4 = newRow.insertCell(3);
+    let col5 = newRow.insertCell(4);
+    let col6 = newRow.insertCell(5);
+    let col7 = newRow.insertCell(6);
+    let col8 = newRow.insertCell(7);
+    let col9 = newRow.insertCell(8);
+
+    col1.outerHTML = ticketNo[0].outerHTML;
+    col2.outerHTML = columns[0].outerHTML;
+    col3.outerHTML = columns[1].outerHTML;
+    col4.outerHTML = columns[2].outerHTML;
+    col5.outerHTML = columns[3].outerHTML;
+    col6.outerHTML = columns[4].outerHTML;
+    col7.outerHTML = columns[5].outerHTML;
+    col8.outerHTML = `<td class="align-middle"><span class="badge rounded-pill text-bg-success">completed</span></td>`;
+    col9.outerHTML = `<td class="align-middle text-center">
+                        <button class="btn btn-info view-ticket" data-bs-toggle="modal" data-bs-target="#viewTicketModal">view</button>
+                        <button class="btn btn-warning edit-ticket d-none" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Edit</button>
+                        <button class="btn btn-danger delete-ticket d-none" data-bs-toggle="modal" data-bs-target="#viewTicketModal">Delete</button>
+                      </td>`;
+    
+    //activeRow.remove();
+    
+  });
 
 
 });
@@ -239,5 +236,47 @@ function showHideModalButtons(row){
 function removeRowHightlight(){
   document.querySelectorAll('tr').forEach(row => {
     row.classList.remove('table-active');
+  });
+}
+
+function initializedViewButton(button){
+  button.addEventListener('click', function(){
+    removeRowHightlight();
+    let row         = this.parentElement.parentElement;
+    activeRow       = row;
+    const ticketNo  = row.getElementsByTagName('th');
+    const columns   = row.getElementsByTagName('td');
+    let modalLabel  = document.getElementById('view-ticket-label');
+    let modalTitle  = document.getElementById('modal-ticket-no');
+    let category    = document.getElementById('category');
+    let status      = document.getElementById('field-status');
+    let title       = document.getElementById('request-title');
+    let description = document.getElementById('ticket-description');
+    let dateCreated = document.getElementById('date-created');
+    let targetDate  = document.getElementById('target-date');
+    let requestedBy = document.getElementById('requested-by');
+    let assignedTo  = document.getElementById('assigned-to');
+    let department  = document.getElementById('department');
+    let completed   = document.getElementById('date-completed');
+    const statusArray = ['ongoing','on queue','completed','overdue'];
+
+    row.classList.add('table-active');
+    
+
+    textContentArray = breakByHTMLChars(columns[6].innerHTML);
+    
+    modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
+    changeModalHeaderColor(columns[6].textContent.toLowerCase());
+    category.value    = columns[5].textContent;
+    status.value      = textContentArray.join("/");
+    title.value       = columns[0].textContent;
+    dateCreated.value = columns[3].textContent;
+    targetDate.value  = columns[4].textContent;
+    requestedBy.value = columns[1].textContent;
+    assignedTo.value  = 'IT Department';
+    department.value  = columns[2].textContent;
+    
+    //showHideButtons
+    showHideModalButtons(row);
   });
 }
