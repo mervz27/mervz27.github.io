@@ -31,3 +31,9 @@ body {
 .table-active {
     --bs-table-active-bg: #0dcaf0;
 }
+
+.bottom-right-toast {
+    position: fixed;
+    bottom: 3rem;
+    right: 1rem;
+}

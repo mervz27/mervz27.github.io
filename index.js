@@ -1,3 +1,4 @@
+let toastCtr = 0;
 function changeModalHeaderColor(status){
   let modalHeader = document.getElementById('modal-header');
   modalHeader.classList.remove('bg-warning','bg-success','bg-success','bg-danger');
@@ -88,16 +89,31 @@ function removeRowHightlight(){
   });
 }
 
-function initializedViewButton(button){
-  button.addEventListener('click', function(){
-    
-  });
-}
-
+ 
 function addGlobalEventListener(type, selector, callback){
   document.addEventListener(type, e => {
     if(e.target.matches(selector)) callback(e);
   });
+}
+
+function generateToast(bgColor = "", textMessage =""){
+  toastCtr++;
+  let toastHtml = `<div class="toast align-items-center ${bgColor} border-0" role="alert" aria-live="assertive" aria-atomic="true"  id="liveToast${toastCtr}">
+                    <div class="d-flex">
+                      <div class="toast-body">
+                        ${textMessage}
+                      </div>
+                      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                   </div>
+                  </div>`;
+  const toastWrapper = document.querySelector('.toast-container');
+  toastWrapper.innerHTML += toastHtml;
+
+  const toastMain = document.querySelector('#liveToast'+toastCtr);
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastMain);
+  toastBootstrap.show();
+  
+
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -132,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ALL VIEW BUTTONS
   addGlobalEventListener("click",'.view-ticket', e => {
     removeRowHightlight();
+
     let modalView = document.querySelector("#viewTicketModal")
     let myModal = new bootstrap.Modal(modalView);
     myModal.show();
@@ -175,47 +192,50 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ALL EDIT BUTTONS
-  editButton.forEach(function(button){
-    button.addEventListener('click', function(){
-      removeRowHightlight();
+  addGlobalEventListener("click",'.edit-ticket', e => {
+    removeRowHightlight();
 
-      let row       = this.parentElement.parentElement;
-      activeRow       = row;
-      const ticketNo  = row.getElementsByTagName('th');
-      const columns   = row.getElementsByTagName('td');
-      let modalLabel  = document.getElementById('view-ticket-label');
-      let modalTitle  = document.getElementById('modal-ticket-no');
-      let category    = document.getElementById('category');
-      let status      = document.getElementById('field-status');
-      let title       = document.getElementById('request-title');
-      let description = document.getElementById('ticket-description');
-      let dateCreated = document.getElementById('date-created');
-      let targetDate  = document.getElementById('target-date');
-      let requestedBy = document.getElementById('requested-by');
-      let assignedTo  = document.getElementById('assigned-to');
-      let department  = document.getElementById('department');
-      let completed   = document.getElementById('date-completed');
-      const statusArray = ['ongoing','on queue','completed','overdue'];
+    let modalView = document.querySelector("#viewTicketModal")
+    let myModal = new bootstrap.Modal(modalView);
+    myModal.show();
 
-      row.classList.add('table-active');
-     
+    let row         = e.target.parentElement.parentElement;
+    activeRow       = row;
+    const ticketNo  = row.getElementsByTagName('th');
+    const columns   = row.getElementsByTagName('td');
+    let modalLabel  = document.getElementById('view-ticket-label');
+    let modalTitle  = document.getElementById('modal-ticket-no');
+    let category    = document.getElementById('category');
+    let status      = document.getElementById('field-status');
+    let title       = document.getElementById('request-title');
+    let description = document.getElementById('ticket-description');
+    let dateCreated = document.getElementById('date-created');
+    let targetDate  = document.getElementById('target-date');
+    let requestedBy = document.getElementById('requested-by');
+    let assignedTo  = document.getElementById('assigned-to');
+    let department  = document.getElementById('department');
+    let completed   = document.getElementById('date-completed');
+    const statusArray = ['ongoing','on queue','completed','overdue'];
 
-      textContentArray = breakByHTMLChars(columns[6].innerHTML);
-      
-      modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
-      changeModalHeaderColor(columns[6].textContent.toLowerCase());
-      category.value    = columns[5].textContent;
-      status.value      = textContentArray.join("/");
-      title.value       = columns[0].textContent;
-      dateCreated.value = columns[3].textContent;
-      targetDate.value  = columns[4].textContent;
-      requestedBy.value = columns[1].textContent;
-      assignedTo.value  = 'IT Department';
-      department.value  = columns[2].textContent;
+    row.classList.add('table-active');
+    
 
-      showHideModalButtons(row);
+    textContentArray = breakByHTMLChars(columns[6].innerHTML);
+    
+    modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
+    changeModalHeaderColor(columns[6].textContent.toLowerCase());
+    category.value    = columns[5].textContent;
+    status.value      = textContentArray.join("/");
+    title.value       = columns[0].textContent;
+    dateCreated.value = columns[3].textContent;
+    targetDate.value  = columns[4].textContent;
+    requestedBy.value = columns[1].textContent;
+    assignedTo.value  = 'IT Department';
+    department.value  = columns[2].textContent;
 
-    });
+    showHideModalButtons(row);
+
+    
   });
 
 
@@ -223,16 +243,21 @@ document.addEventListener('DOMContentLoaded', function() {
   deleteButton.forEach(function(button){
     button.addEventListener('click', function(){
       removeRowHightlight();
-      let row       = this.parentElement.parentElement;
+      let row           = this.parentElement.parentElement;
+      const ticketNo    = row.getElementsByTagName('th');
       const modalDelete = document.querySelector("#deleteTicketModal")
-      const myModal = new bootstrap.Modal(modalDelete);
+      const myModal     = new bootstrap.Modal(modalDelete);
+      const modalText   = modalDelete.querySelector("#delete-prompt"); 
+      modalText.innerHTML = `Are you sure you want to delete <strong>${ticketNo[0].textContent}</strong> ?`;
       myModal.show();
       
       const confirmDelBtn = modalDelete.querySelector("#modal-btn-delete");
       confirmDelBtn.addEventListener("click", function(){
         myModal.hide();
         row.remove();        
+        generateToast("text-bg-danger",`Ticket <strong>${ticketNo[0].textContent}</strong> DELETED`);
       });
+      
     });
   });
 
@@ -280,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       </td>`;
     
     activeRow.remove();
-    
+    generateToast("text-bg-success",`Ticket <strong>${ticketNo[0].textContent}</strong> tag as COMPLETE`);
   });
 
   // PROCESS TICKET BUTTON
@@ -317,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       </td>`;
     
     activeRow.remove();
-    
+    generateToast("text-bg-warning",`Ticket ${ticketNo[0].textContent} tag as <strong>ONGOING</strong>`);
   });
 
 });
