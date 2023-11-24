@@ -1,4 +1,10 @@
 let toastCtr = 0;
+/** 
+ * changeModalHeaderColor
+ * -changes modal header color based on row status
+ * 
+ * @param {string} status 
+ */
 function changeModalHeaderColor(status){
   let modalHeader = document.getElementById('modal-header');
   modalHeader.classList.remove('bg-warning','bg-success','bg-success','bg-danger');
@@ -26,7 +32,13 @@ function changeModalHeaderColor(status){
   } 
 }
 
-
+/** 
+ * breakByHTMLChars
+ * -separate string of text by html tags and convert to array
+ * @param {string} statusHtml the column of status in selected row
+ * 
+ * @return {array} the array version of string
+ */
 function breakByHTMLChars(statusHtml = ""){
   const tagRegex = /<[^>]*>/g;
   const resultArray = statusHtml.split(tagRegex);
@@ -34,7 +46,11 @@ function breakByHTMLChars(statusHtml = ""){
   return resultArray.filter(item => item.trim() !== '');
 }
 
-
+/** 
+ * showHideTableButtons
+ * -show or hide the table buttons depending on row status
+ * @param {object} row 
+ */
 function showHideTableButtons(row){
   const columns = row.getElementsByTagName('td'); 
   const status = breakByHTMLChars(columns[6].innerHTML);
@@ -47,12 +63,23 @@ function showHideTableButtons(row){
   }
 }
 
-function showHideModalButtons(row){
+/** 
+ * showHideModalButtons
+ * -show or hide the buttons inside the of the modal based on row status
+ * 
+ * @param {object} row 
+ * @param {string} state name of originating function call, ex. from "edit" 
+ */
+function showHideModalButtons(row, state =''){
   const columns = row.getElementsByTagName('td'); 
   const status = breakByHTMLChars(columns[6].innerHTML);
   const modalMain = document.querySelector('#viewTicketModal');
   
-  
+  removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete,#modal-btn-save");
+  removeBtns.forEach(btnCol => {
+    btnCol.classList.add('d-none');
+  });
+
   if(status.includes("completed")){
     removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete");
     removeBtns.forEach(btnCol => {
@@ -65,37 +92,78 @@ function showHideModalButtons(row){
     removeBtns.forEach(btnCol => {
       btnCol.classList.add('d-none');
     });
+    
+    if(state == ""){
+      showBtns = modalMain.querySelectorAll("#modal-btn-process");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.remove('d-none');
+      });
+    } else {
+      showBtns = modalMain.querySelectorAll("#modal-btn-process");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.add('d-none');
+      });
 
-    showBtns = modalMain.querySelectorAll("#modal-btn-process");
-    showBtns.forEach(btnCol => {
-      btnCol.classList.remove('d-none');
-    });
+      showBtns = modalMain.querySelectorAll("#modal-btn-save");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.remove('d-none');
+      });
+    }
+    
   } else if(status.includes("ongoing")){
     removeBtns = modalMain.querySelectorAll("#modal-btn-process");
     removeBtns.forEach(btnCol => {
       btnCol.classList.add('d-none');
     });
 
-    showBtns = modalMain.querySelectorAll("#modal-btn-complete");
-    showBtns.forEach(btnCol => {
-      btnCol.classList.remove('d-none');
-    });
-  }
+    if(state == ""){
+      showBtns = modalMain.querySelectorAll("#modal-btn-complete");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.remove('d-none');
+      });
+    } else {
+      showBtns = modalMain.querySelectorAll("#modal-btn-complete");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.add('d-none');
+      });
+
+      showBtns = modalMain.querySelectorAll("#modal-btn-save");
+      showBtns.forEach(btnCol => {
+        btnCol.classList.remove('d-none');
+      });
+    }  
+  } 
+
+  
 }
 
+/** 
+ * removeRowHightlight
+ * -removes row highlight
+ */
 function removeRowHightlight(){
   document.querySelectorAll('tr').forEach(row => {
     row.classList.remove('table-active');
   });
 }
 
- 
+/** 
+ * addGlobalEventListener
+ * -js event delegation wrapper
+ */
 function addGlobalEventListener(type, selector, callback){
   document.addEventListener(type, e => {
     if(e.target.matches(selector)) callback(e);
   });
 }
 
+/** 
+ * generateToast
+ * -generate dynamic toast message
+ * 
+ * @param {string} [bgColor=""]     bootstrap bg color class
+ * @param {string} [textMessage=""] text string to prompt
+ */
 function generateToast(bgColor = "", textMessage =""){
   toastCtr++;
   let toastHtml = `<div class="toast align-items-center ${bgColor} border-0" role="alert" aria-live="assertive" aria-atomic="true"  id="liveToast${toastCtr}">
@@ -112,9 +180,47 @@ function generateToast(bgColor = "", textMessage =""){
   const toastMain = document.querySelector('#liveToast'+toastCtr);
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastMain);
   toastBootstrap.show();
-  
-
 }
+
+/**
+ * assignRowFieldValues
+ * - assign the selected row data to modal fields
+ * @param {object} row 
+ */
+function assignRowFieldValues(row) {
+    const ticketNo  = row.getElementsByTagName('th');
+    const columns   = row.getElementsByTagName('td');
+    let modalLabel  = document.getElementById('view-ticket-label');
+    let modalTitle  = document.getElementById('modal-ticket-no');
+    let category    = document.getElementById('category');
+    let status      = document.getElementById('field-status');
+    let title       = document.getElementById('request-title');
+    let description = document.getElementById('ticket-description');
+    let dateCreated = document.getElementById('date-created');
+    let targetDate  = document.getElementById('target-date');
+    let requestedBy = document.getElementById('requested-by');
+    let assignedTo  = document.getElementById('assigned-to');
+    let department  = document.getElementById('department');
+    let completed   = document.getElementById('date-completed');
+    const statusArray = ['ongoing','on queue','completed','overdue'];
+
+    row.classList.add('table-active');
+    
+
+    textContentArray = breakByHTMLChars(columns[6].innerHTML);
+    
+    modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
+    changeModalHeaderColor(columns[6].textContent.toLowerCase());
+    category.value    = columns[5].textContent;
+    status.value      = textContentArray.join("/");
+    title.value       = columns[0].textContent;
+    dateCreated.value = columns[3].textContent;
+    targetDate.value  = columns[4].textContent;
+    requestedBy.value = columns[1].textContent;
+    assignedTo.value  = 'IT Department';
+    department.value  = columns[2].textContent;
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
   //Ticket Button
@@ -155,44 +261,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let row         = e.target.parentElement.parentElement;
     activeRow       = row;
-    const ticketNo  = row.getElementsByTagName('th');
-    const columns   = row.getElementsByTagName('td');
-    let modalLabel  = document.getElementById('view-ticket-label');
-    let modalTitle  = document.getElementById('modal-ticket-no');
-    let category    = document.getElementById('category');
-    let status      = document.getElementById('field-status');
-    let title       = document.getElementById('request-title');
-    let description = document.getElementById('ticket-description');
-    let dateCreated = document.getElementById('date-created');
-    let targetDate  = document.getElementById('target-date');
-    let requestedBy = document.getElementById('requested-by');
-    let assignedTo  = document.getElementById('assigned-to');
-    let department  = document.getElementById('department');
-    let completed   = document.getElementById('date-completed');
-    const statusArray = ['ongoing','on queue','completed','overdue'];
 
-    row.classList.add('table-active');
-    
+    // assign values to fields base on selected row
+    assignRowFieldValues(row);
 
-    textContentArray = breakByHTMLChars(columns[6].innerHTML);
-    
-    modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
-    changeModalHeaderColor(columns[6].textContent.toLowerCase());
-    category.value    = columns[5].textContent;
-    status.value      = textContentArray.join("/");
-    title.value       = columns[0].textContent;
-    dateCreated.value = columns[3].textContent;
-    targetDate.value  = columns[4].textContent;
-    requestedBy.value = columns[1].textContent;
-    assignedTo.value  = 'IT Department';
-    department.value  = columns[2].textContent;
-    
-    //showHideButtons
+    //show modal buttons
     showHideModalButtons(row);
   });
 
   // ALL EDIT BUTTONS
   addGlobalEventListener("click",'.edit-ticket', e => {
+    // Remove table row highlight
     removeRowHightlight();
 
     let modalView = document.querySelector("#viewTicketModal")
@@ -201,39 +280,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let row         = e.target.parentElement.parentElement;
     activeRow       = row;
-    const ticketNo  = row.getElementsByTagName('th');
-    const columns   = row.getElementsByTagName('td');
-    let modalLabel  = document.getElementById('view-ticket-label');
-    let modalTitle  = document.getElementById('modal-ticket-no');
-    let category    = document.getElementById('category');
-    let status      = document.getElementById('field-status');
-    let title       = document.getElementById('request-title');
-    let description = document.getElementById('ticket-description');
-    let dateCreated = document.getElementById('date-created');
-    let targetDate  = document.getElementById('target-date');
-    let requestedBy = document.getElementById('requested-by');
-    let assignedTo  = document.getElementById('assigned-to');
-    let department  = document.getElementById('department');
-    let completed   = document.getElementById('date-completed');
-    const statusArray = ['ongoing','on queue','completed','overdue'];
+    
+    // assign values to fields base on selected row
+    assignRowFieldValues(row);
 
-    row.classList.add('table-active');
+    // remove disable attribute in fields
+    const inputFields = document.querySelectorAll(".form-control");
+    inputFields.forEach(input => {
+      if(input.id != "date-completed") input.removeAttribute("disabled");
+    });
+
     
 
-    textContentArray = breakByHTMLChars(columns[6].innerHTML);
-    
-    modalTitle.innerHTML =`${ticketNo[0].textContent} [${textContentArray.join("/")}]`;
-    changeModalHeaderColor(columns[6].textContent.toLowerCase());
-    category.value    = columns[5].textContent;
-    status.value      = textContentArray.join("/");
-    title.value       = columns[0].textContent;
-    dateCreated.value = columns[3].textContent;
-    targetDate.value  = columns[4].textContent;
-    requestedBy.value = columns[1].textContent;
-    assignedTo.value  = 'IT Department';
-    department.value  = columns[2].textContent;
 
-    showHideModalButtons(row);
+    // show modal buttons
+    showHideModalButtons(row,"edit");
 
     
   });
@@ -266,6 +327,11 @@ document.addEventListener('DOMContentLoaded', function() {
   modalMain.addEventListener("hidden.bs.modal", function(){
     activeRow.classList.remove('table-active');
     
+     // remove disable attribute in fields
+     const inputFields = document.querySelectorAll(".form-control");
+     inputFields.forEach(input => {
+       if(input.id != "date-completed") input.setAttribute("disabled","");
+     });
   });
 
   
@@ -343,6 +409,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     activeRow.remove();
     generateToast("text-bg-warning",`Ticket ${ticketNo[0].textContent} tag as <strong>ONGOING</strong>`);
+  });
+
+  // SAVE TICKET BUTTON
+  addGlobalEventListener("click",'#modal-btn-save', e => {
+    const tblRow   = document.querySelector("#table-ongoing");
+    const tblBody  = tblRow.querySelector('tbody');
+    const ticketNo = activeRow.querySelectorAll('th');
+    const columns  = activeRow.querySelectorAll('td');
+    
+    let category    = document.getElementById('category');
+    let status      = document.getElementById('field-status');
+    let title       = document.getElementById('request-title');
+    let description = document.getElementById('ticket-description');
+    let dateCreated = document.getElementById('date-created');
+    let targetDate  = document.getElementById('target-date');
+    let requestedBy = document.getElementById('requested-by');
+    let assignedTo  = document.getElementById('assigned-to');
+    let department  = document.getElementById('department');
+    
+    columns[5].textContent = category.value;
+    columns[0].textContent = title.value       
+    columns[3].textContent = dateCreated.value 
+    columns[4].textContent = targetDate.value  
+    columns[1].textContent = requestedBy.value 
+    columns[2].textContent = department.value  
+    
+    generateToast("text-bg-success",`Ticket ${ticketNo[0].textContent} updated`); 
   });
 
 });

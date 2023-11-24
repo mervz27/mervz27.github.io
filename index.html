@@ -435,6 +435,7 @@
       <div class="modal fade " id="viewTicketModal" tabindex="-1" aria-labelledby="view-ticket-label" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
+
             <div class="modal-header bg-warning" id="modal-header">
               <h1 class="modal-title fs-5" id="view-ticket-label">Ticket Details for <span class="fw-bold" id="modal-ticket-no">TIX-20231006 [On Going]</span></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -449,7 +450,6 @@
                     <label for="category" class="col-form-label col-2 fw-bold text-end">Category:</label>
                     <div class="col-4">
                       <input type="text" class="form-control form-control-sm" name="category" id="category" value="Hardware Support" disabled>
-                      
                     </div>
                     
                     <!-- STATUS -->
@@ -507,9 +507,7 @@
                     </div>
                   </div>
 
-                  <div class="row">
-
-                  </div>
+                  
                 </form>  
               </div>
             </div>
@@ -518,7 +516,9 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" class="btn btn-warning" id="modal-btn-process"  data-bs-dismiss="modal">Process Ticket</button>
               <button type="button" class="btn btn-success" id="modal-btn-complete" data-bs-dismiss="modal">Complete Ticket</button>
+              <button type="button" class="btn btn-success d-none" id="modal-btn-save" data-bs-dismiss="modal">Save</button>
             </div>
+
           </div>
         </div>
       </div>
@@ -528,7 +528,7 @@
       <!-- DELETE MODAL -->
       <!-- ------------ -->
       <div class="modal fade" id="deleteTicketModal" tabindex="-1" aria-labelledby="delete-ticket-label" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-dialog modal-md ">
           <div class="modal-content">
             <div class="modal-header bg-danger" id="modal-header">
               <h1 class="modal-title fs-5" id="delete-ticket-label">Confirm Delete</h1>
@@ -547,10 +547,33 @@
         </div>
       </div>
 
+
+      <!-- ------------ -->
+      <!-- CONFIRM MODAL -->
+      <!-- ------------ -->
+      <div class="modal fade" id="confirmTicketModal" tabindex="-1" aria-labelledby="confirm-ticket-label" aria-hidden="true">
+        <div class="modal-dialog modal-md ">
+          <div class="modal-content">
+            <div class="modal-header" id="modal-header">
+              <h1 class="modal-title fs-5" id="confirm-ticket-label">Confirm Record</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <div id="confirm-prompt">Are you sure you want to delete </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" class="btn btn-success" id="modal-btn-yes">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast -->
       <div aria-live="polite" aria-atomic="true" class="position-relative">
         <div class="toast-container bottom-right-toast p-3" >
-          
-            
           
         </div>
       </div>
