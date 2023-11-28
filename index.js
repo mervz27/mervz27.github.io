@@ -7,12 +7,15 @@ let toastCtr = 0;
  */
 function changeModalHeaderColor(status){
   let modalHeader = document.getElementById('modal-header');
-  modalHeader.classList.remove('bg-warning','bg-success','bg-success','bg-danger');
+  modalHeader.classList.remove('bg-warning','bg-success','bg-success','bg-primary','bg-danger');
   
   let fstatus       = document.getElementById('field-status');
   fstatus.classList.remove('text-bg-warning','text-bg-secondary','text-bg-success','text-bg-danger')
       
-  switch (status) {
+  switch (status) { 
+    case 'add':
+      modalHeader.classList.add('bg-primary');
+      break; 
     case 'ongoing':
       modalHeader.classList.add('bg-warning');
       fstatus.classList.add('text-bg-warning');
@@ -75,7 +78,7 @@ function showHideModalButtons(row, state =''){
   const status = breakByHTMLChars(columns[6].innerHTML);
   const modalMain = document.querySelector('#viewTicketModal');
   
-  removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete,#modal-btn-save");
+  removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete,#modal-btn-save,#modal-btn-create");
   removeBtns.forEach(btnCol => {
     btnCol.classList.add('d-none');
   });
@@ -214,6 +217,7 @@ function assignRowFieldValues(row) {
     category.value    = columns[5].textContent;
     status.value      = textContentArray.join("/");
     title.value       = columns[0].textContent;
+    description.value = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi esse provident mollitia aut illum perspiciatis hic sint similique consequuntur, odio aspernatur impedit excepturi praesentium architecto, voluptates dolore voluptas dolores dicta!';
     dateCreated.value = columns[3].textContent;
     targetDate.value  = columns[4].textContent;
     requestedBy.value = columns[1].textContent;
@@ -222,8 +226,109 @@ function assignRowFieldValues(row) {
 }
 
 
+/**
+ * clearFieldValues
+ * - empty text field value for add modal
+ * 
+ */
+function clearFieldValues() {
+  let modalLabel  = document.getElementById('view-ticket-label');
+  let modalTitle  = document.getElementById('view-ticket-label');
+  let category    = document.getElementById('category');
+  let status      = document.getElementById('field-status');
+  let title       = document.getElementById('request-title');
+  let description = document.getElementById('ticket-description');
+  let dateCreated = document.getElementById('date-created');
+  let targetDate  = document.getElementById('target-date');
+  let requestedBy = document.getElementById('requested-by');
+  let assignedTo  = document.getElementById('assigned-to');
+  let department  = document.getElementById('department');
+  let completed   = document.getElementById('date-completed');
+  const statusArray = ['ongoing','on queue','completed','overdue'];
+
+  let date = new Date();
+  date.setDate(date.getDate() + 7);
+  newDateTarget = date.toISOString().split('T')[0];
+
+  modalTitle.innerHTML =`Open Ticket Details for <span class="fw-bold" id="modal-ticket-no"></span>`;
+  changeModalHeaderColor("add");
+  category.value    = '';
+  status.value      = 'On Queue';
+  title.value       = '';
+  description.value = '';
+  dateCreated.value = new Date().toISOString().split('T')[0];
+  targetDate.value  = newDateTarget;
+  requestedBy.value = '';
+  assignedTo.value  = 'IT Department';
+  department.value  = '';
+
+  // disable some dates
+  status.setAttribute("disabled","");
+  dateCreated.setAttribute("disabled","");
+  assignedTo.setAttribute("disabled","");
+
+  //show create ticket button
+  removeBtns = modalMain.querySelectorAll("#modal-btn-process,#modal-btn-complete,#modal-btn-save");
+  removeBtns.forEach(btnCol => {
+    btnCol.classList.add('d-none');
+  });
+  showBtns = modalMain.querySelectorAll("#modal-btn-create");
+  showBtns.forEach(btnCol => {
+    btnCol.classList.remove('d-none');
+  });
+}
+
+
+function addTicketRecord() {
+  let newTicketNo = `TIX-${new Date().getFullYear()}${new Date().getMonth()+1}${new Date().getDate()}`
+  let category    = document.getElementById('category');
+  let status      = document.getElementById('field-status');
+  let title       = document.getElementById('request-title');
+  let description = document.getElementById('ticket-description');
+  let dateCreated = document.getElementById('date-created');
+  let targetDate  = document.getElementById('target-date');
+  let requestedBy = document.getElementById('requested-by');
+  let assignedTo  = document.getElementById('assigned-to');
+  let department  = document.getElementById('department');
+  let completed   = document.getElementById('date-completed');
+
+  const tblRow   = document.querySelector("#table-onqueue");
+  const tblBody  = tblRow.querySelector('tbody');
+  
+  let newRow     = tblBody.insertRow();
+
+  let col1 = newRow.insertCell(0);
+  let col2 = newRow.insertCell(1);
+  let col3 = newRow.insertCell(2);
+  let col4 = newRow.insertCell(3);
+  let col5 = newRow.insertCell(4);
+  let col6 = newRow.insertCell(5);
+  let col7 = newRow.insertCell(6);
+  let col8 = newRow.insertCell(7);
+  let col9 = newRow.insertCell(8);
+
+  col1.outerHTML = `<th class="align-middle fs-6">${newTicketNo}</th>`;
+  col2.outerHTML = `<td class="align-middle fs-6">${title.value}</td>`;
+  col3.outerHTML = `<td class="align-middle fs-6">${requestedBy.value}</td>`;
+  col4.outerHTML = `<td class="align-middle fs-6">${department.value}</td>`;
+  col5.outerHTML = `<td class="align-middle fs-6">${dateCreated.value}</td>`;
+  col6.outerHTML = `<td class="align-middle fs-6">${targetDate.value}</td>`;
+  col7.outerHTML = `<td class="align-middle fs-6">${category.value}</td>`;
+  col8.outerHTML = `<td class="align-middle"><span class="badge rounded-pill text-bg-secondary">On Queue</span></td>`;
+  col9.outerHTML = `<td class="align-middle text-center">
+                      <button class="btn btn-info view-ticket" >view</button>
+                      <button class="btn btn-warning edit-ticket" >Edit</button>
+                      <button class="btn btn-danger delete-ticket" >Delete</button>
+                    </td>`;
+  
+  generateToast("text-bg-warning",`Ticket ${newTicketNo} added`);
+}
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   //Ticket Button
+  addButton = document.querySelector('#add-ticket');
   editButton = document.querySelectorAll('.edit-ticket');
   deleteButton = document.querySelectorAll('.delete-ticket');
   modalMain = document.querySelector('#viewTicketModal');
@@ -290,13 +395,44 @@ document.addEventListener('DOMContentLoaded', function() {
       if(input.id != "date-completed") input.removeAttribute("disabled");
     });
 
-    
-
-
     // show modal buttons
     showHideModalButtons(row,"edit");
-
     
+  });
+
+
+  // ADD BUTTON
+  addButton.addEventListener('click', function(){
+    let modalView = document.querySelector("#viewTicketModal");
+    const createButton = modalView.querySelector("#modal-btn-create");
+    let myModal = new bootstrap.Modal(modalView);
+    myModal.show();
+
+    const inputFields = document.querySelectorAll(".form-control");
+    inputFields.forEach(input => {
+      if(input.id != "date-completed") input.removeAttribute("disabled");
+    });
+
+    // make text field empty
+    clearFieldValues();
+
+    // CREATE TICKET BUTTON
+    createButton.addEventListener('click', function(event){
+      const forms = document.querySelectorAll('.requires-validation');
+      Array.from(forms).forEach(function (form) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+        } else {
+          addTicketRecord();
+          myModal.hide();
+        }
+        form.classList.add('was-validated');
+      })
+    });
+
+
   });
 
 
@@ -325,12 +461,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ON MODAL CLOSE
   modalMain.addEventListener("hidden.bs.modal", function(){
-    activeRow.classList.remove('table-active');
+    if(activeRow != null) activeRow.classList.remove('table-active');
     
-     // remove disable attribute in fields
+     // add disable attribute in fields
      const inputFields = document.querySelectorAll(".form-control");
      inputFields.forEach(input => {
        if(input.id != "date-completed") input.setAttribute("disabled","");
+     });
+
+     const forms = document.querySelectorAll(".requires-validation");
+     forms.forEach(form => {
+      form.classList.remove('was-validated');
      });
   });
 
@@ -438,5 +579,6 @@ document.addEventListener('DOMContentLoaded', function() {
     generateToast("text-bg-success",`Ticket ${ticketNo[0].textContent} updated`); 
   });
 
+ 
 });
 

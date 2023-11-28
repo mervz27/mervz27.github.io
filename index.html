@@ -68,9 +68,13 @@
         </div>
       </div>
       
-      <div class=" divider"></div>
+      <!-- /<div class=" divider"></div> -->
+      <div class="container-fluid px-4 py-2">
+        <div class="row">
+          <button type="button" class="btn btn-primary" id="add-ticket">Add Ticket</button>
+        </div>
       
-     
+      </div>
        
       <!-- ONGOING TABLE -->
       <section class="accordion container-fluid" id="accordion-table-ongoing">
@@ -199,7 +203,7 @@
           <div id="acc-table-onqueue" class="accordion-collapse collapse show" data-bs-parent="#accordion-table-onqueue">
             <div class="accordion-body">
               <!-- Table Proper -->
-              <table class="table table-striped table-responsive-md table-sm table-hover">
+              <table class="table table-striped table-responsive-md table-sm table-hover" id="table-onqueue">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">Ticket No</th>
@@ -443,49 +447,62 @@
             <!-- Modal Body -->
             <div class="modal-body">
               <div class="container">
-                <form action="" >
+                <form class="requires-validation" novalidate>
                   <div class="row">
 
                     <!-- CATEGORY -->
                     <label for="category" class="col-form-label col-2 fw-bold text-end">Category:</label>
                     <div class="col-4">
-                      <input type="text" class="form-control form-control-sm" name="category" id="category" value="Hardware Support" disabled>
+                      <input type="text" class="form-control form-control-sm" name="category" id="category" value="Hardware Support" disabled required>
+                      <div class="invalid-feedback">This field is required.</div>
                     </div>
                     
                     <!-- STATUS -->
                     <label for="category" class="col-form-label col-2 fw-bold text-end">Status:</label>
                     <div class="col-4">
-                      <input type="text" class="form-control form-control-sm text-bg-warning" name="field-status" id="field-status" value="On Going" disabled>
+                      <input type="text" class="form-control form-control-sm text-bg-warning" name="field-status" id="field-status" value="On Going" disabled required>
                     </div>
 
                     <!-- TITLE -->
                     <label for="request-title" class="col-form-label col-2 fw-bold text-end">Request Title:</label>
                     <div class="col-10">
-                      <textarea class="form-control form-control-sm" name="request-title" id="request-title" rows="1" disabled>Additional Module Access</textarea>
+                      <textarea class="form-control form-control-sm" name="request-title" id="request-title" rows="1" disabled required>Additional Module Access</textarea>
+                      <div class="invalid-feedback">
+                        This field is required.
+                      </div>
                     </div>
 
                     <!-- DESCRIPTION -->
                     <label for="ticket-description" class="col-form-label col-2 fw-bold text-end">Ticket Description:</label>
                     <div class="col-10">
-                      <textarea class="form-control form-control-sm mb-2" name="ticket-description" id="ticket-description" rows="3" disabled>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi esse provident mollitia aut illum perspiciatis hic sint similique consequuntur, odio aspernatur impedit excepturi praesentium architecto, voluptates dolore voluptas dolores dicta!</textarea>
+                      <textarea class="form-control form-control-sm mb-2" name="ticket-description" id="ticket-description" rows="3" disabled required>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi esse provident mollitia aut illum perspiciatis hic sint similique consequuntur, odio aspernatur impedit excepturi praesentium architecto, voluptates dolore voluptas dolores dicta!</textarea>
+                      <div class="invalid-feedback">
+                        This field is required.
+                      </div>
                     </div>
 
                     <!-- DATE CREATED -->
                     <label for="date-created" class="col-form-label col-2 fw-bold text-end">Date Created:</label>
                     <div class="col-4">
-                      <input type="date" class="form-control form-control-sm" name="date-created" id="date-created" value="2023-10-10" disabled>
+                      <input type="date" class="form-control form-control-sm" name="date-created" id="date-created" value="2023-10-10" disabled >
                     </div>
 
                     <!-- TARGET DATE -->
                     <label for="target-date" class="col-form-label col-2 fw-bold text-end">Target Date:</label>
                     <div class="col-4">
-                      <input type="date" class="form-control form-control-sm" name="target-date" id="target-date" value="2023-10-15" disabled>
+                      <input type="date" class="form-control form-control-sm" name="target-date" id="target-date" value="2023-10-15" disabled required>
+                      <div class="invalid-feedback">
+                        This field is required.
+                      </div>
                     </div>
 
                     <!-- REQUESTED BY -->
                     <label for="requested-by" class="col-form-label col-2 fw-bold text-end">Requested By:</label>
                     <div class="col-4">
-                      <input type="text" class="form-control form-control-sm" name="requested-by" id="requested-by" value="John Doe" disabled>
+                      <input type="text" class="form-control form-control-sm" name="requested-by" id="requested-by" value="John Doe" disabled required>
+                      <div class="invalid-feedback">
+                        This field is required.
+                      </div>
                     </div>
 
                     <!-- ASSIGNED TO -->
@@ -497,7 +514,10 @@
                     <!-- DEPARTMENT -->
                     <label for="department" class="col-form-label col-2 fw-bold text-end">Department:</label>
                     <div class="col-4">
-                      <input type="text" class="form-control form-control-sm" name="department" id="department" value="Sales Department" disabled>
+                      <input type="text" class="form-control form-control-sm" name="department" id="department" value="Sales Department" disabled required>
+                      <div class="invalid-feedback">
+                        Please add your department.This field is required.
+                      </div>
                     </div>
 
                     <!-- DATE COMPLETED -->
@@ -514,9 +534,11 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-warning" id="modal-btn-process"  data-bs-dismiss="modal">Process Ticket</button>
-              <button type="button" class="btn btn-success" id="modal-btn-complete" data-bs-dismiss="modal">Complete Ticket</button>
+              <button type="button" class="btn btn-warning d-none" id="modal-btn-process"  data-bs-dismiss="modal">Process Ticket</button>
+              <button type="button" class="btn btn-success d-none" id="modal-btn-complete" data-bs-dismiss="modal">Complete Ticket</button>
               <button type="button" class="btn btn-success d-none" id="modal-btn-save" data-bs-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-primary d-none" id="modal-btn-create">Create Ticket</button>
+              
             </div>
 
           </div>
