@@ -147,6 +147,7 @@ function showHideModalButtons(row, state =''){
 function removeRowHightlight(){
   document.querySelectorAll('tr').forEach(row => {
     row.classList.remove('table-active');
+     
   });
 }
 
